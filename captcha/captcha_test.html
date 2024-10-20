@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPTCHA Test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>CAPTCHA Test</h1>
+    <div id="captcha-container">
+        <img id="captcha-image" src="" alt="CAPTCHA">
+        <p>CAPTCHA ID: <span id="captcha-id"></span></p>
+    </div>
+    <form id="verify-form">
+        <input type="text" id="captcha-input" name="captchaInput" placeholder="Enter CAPTCHA" required>
+        <input type="hidden" id="captcha-id-input" name="captchaId">
+        <button type="submit">Verify CAPTCHA</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Load CAPTCHA
+            $.get('http://localhost:8080/captcha', function(data) {
+                $('#captcha-image').attr('src', data.captchaImage);
+                $('#captcha-id').text(data.captchaId);
+                $('#captcha-id-input').val(data.captchaId);
+            });
+
+            // Submit form
+            $('#verify-form').submit(function(e) {
+                e.preventDefault();
+                $.post('http://localhost:8080/verify', $(this).serialize(), function(data) {
+                    $('#result').text('Success! Redirecting...');
+                    window.location.href = '/welcome';
+                }).fail(function(xhr) {
+                    $('#result').text('Error: ' + xhr.responseText);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
