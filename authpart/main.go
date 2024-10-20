@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os/exec"
+	"sync"
 	"time"
 )
 
@@ -53,6 +54,15 @@ func sessionHandler() string {
 	return time.Now().Format("15:05:04")
 }
 
+var count int
+var mu sync.Mutex
+
+func counter() {
+	mu.Lock()
+	count++
+	mu.Unlock()
+}
+
 func httpHandlers() {
 	ipaddress := ipAddress()
 	str := fmt.Sprintf("%s", ipaddress[1])
@@ -61,14 +71,20 @@ func httpHandlers() {
 			otp = OtpGenerate()
 			lastGenerated = time.Now()
 		}
+		counter()
 		fmt.Fprintf(w, "My otp for this session %v is: %06d\n", sessionHandler(), otp)
 	})
 	http.HandleFunc("/uuid", func(w http.ResponseWriter, r *http.Request) {
 		uuid := uuidGen()
+		counter()
 		fmt.Fprintf(w, "My uuid for this session %v is: %s\n", sessionHandler(), uuid)
 	})
 	http.HandleFunc("/ipaddress", func(w http.ResponseWriter, r *http.Request) {
+		counter()
 		fmt.Fprintf(w, "My IPaddress for this session %v is: %v\n", sessionHandler(), str)
+	})
+	http.HandleFunc("/counter", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "My counter is: %v\n", count)
 	})
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		fmt.Printf("%v", err)
