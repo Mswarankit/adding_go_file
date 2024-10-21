@@ -2,22 +2,8 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"sync"
 )
-
-func main() {
-	fmt.Println("Happy Coding @Gophers!")
-	lookup := New()
-	lookup.Set("Name", "Donna Pysan")
-	lookup.Set("12", 24)
-	lookup.SetDefaultValue("City", "Macedonia")
-
-	for kv := range lookup.Iterator() {
-		fmt.Printf("%s: %v\n", kv.Key, kv.Value)
-	}
-
-}
 
 type LookupTable struct {
 	data map[any]any
