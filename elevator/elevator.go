@@ -93,7 +93,7 @@ func (e *Elevator) processUpQueue() {
 
 		e.state.IsMoving = false
 		e.state.DoorsOpen = true
-		time.Sleep(10 * time.Second)
+		time.Sleep(2 * time.Second)
 		e.state.DoorsOpen = false
 	} else {
 		e.state.CurrentFloor++
@@ -107,6 +107,9 @@ func (e *Elevator) processUpQueue() {
 }
 
 func (e *Elevator) processDownQueue() {
+	if len(e.requests.downQueue) == 0 {
+		return
+	}
 	e.state.Direction = Down
 	e.state.IsMoving = true
 	nextRequest := e.requests.downQueue[0]
@@ -114,7 +117,7 @@ func (e *Elevator) processDownQueue() {
 		e.requests.downQueue = e.requests.downQueue[1:]
 		e.state.IsMoving = false
 		e.state.DoorsOpen = true
-		time.Sleep(10 * time.Second)
+		time.Sleep(2 * time.Second)
 	} else {
 		e.state.CurrentFloor--
 		time.Sleep(1 * time.Second)
