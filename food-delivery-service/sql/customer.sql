@@ -1,0 +1,5 @@
+INSERT INTO public.customer (id, email, password, phone, first_name, last_name, created_at) VALUES (1, 'Zack@1848.com', '84b8n4@*$HBG*$B8', '+14958944849', 'Zack', 'Cards', '2024-11-17 22:02:47.054611')
+-- INSERT INTO public.customer (id, email, password, phone, first_name, last_name, created_at) VALUES (1, 'Zack@1848.com', '84b8n4@*$HBG*$B8', '+14958944849', 'Zack', 'Cards', '2024-11-17 22:02:47.054611')
+-- INSERT INTO public.customer (id, email, password, phone, first_name, last_name, created_at) VALUES (1, 'Zack@1848.com', '84b8n4@*$HBG*$B8', '+14958944849', 'Zack', 'Cards', '2024-11-17 22:02:47.054611')
+-- INSERT INTO public.customer (id, email, password, phone, first_name, last_name, created_at) VALUES (1, 'Zack@1848.com', '84b8n4@*$HBG*$B8', '+14958944849', 'Zack', 'Cards', '2024-11-17 22:02:47.054611')
+-- INSERT INTO public.customer (id, email, password, phone, first_name, last_name, created_at) VALUES (1, 'Zack@1848.com', '84b8n4@*$HBG*$B8', '+14958944849', 'Zack', 'Cards', '2024-11-17 22:02:47.054611')
